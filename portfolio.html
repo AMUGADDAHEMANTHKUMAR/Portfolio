@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hemant Analytics - Loading Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Main Loading Container - Always Centered */
+        .loading-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, 
+                rgba(14, 165, 233, 0.15) 0%,
+                rgba(6, 182, 212, 0.1) 25%,
+                rgba(8, 145, 178, 0.08) 50%,
+                #0a0a0a 75%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .loading-container.fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+            visibility: hidden;
+        }
+
+        /* Animated Background Grid */
+        .grid-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Floating Orbs */
+        .floating-orbs {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(14, 165, 233, 0.8), 
+                rgba(6, 182, 212, 0.4), 
+                transparent);
+            filter: blur(1px);
+            animation: orbFloat 15s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { 
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.6;
+            }
+            25% { 
+                transform: translateY(-30px) translateX(20px) scale(1.1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-60px) translateX(-10px) scale(0.9);
+                opacity: 1;
+            }
+            75% { 
+                transform: translateY(-20px) translateX(-25px) scale(1.05);
+                opacity: 0.7;
+            }
+        }
+
+        /* Main Content Container - Perfect Centering */
+        .loading-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 100;
+            width: 90%;
+            max-width: 600px;
+            animation: contentReveal 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes contentReveal {
+            0% { 
+                opacity: 0; 
+                transform: translateY(40px) scale(0.9);
+                filter: blur(10px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        /* Profile Image Container */
+        .profile-container {
+            position: relative;
+            margin-bottom: 40px;
+            animation: profilePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes profilePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #0ea5e9, #06b6d4, #0891b2);
+            background-clip: padding-box;
+            position: relative;
+            z-index: 2;
+            animation: imageGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes imageGlow {
+            0% { 
+                box-shadow: 0 0 20px rgba(14, 165, 233, 0.5),
+                           0 0 40px rgba(6, 182, 212, 0.3),
+                           0 0 60px rgba(8, 145, 178, 0.1);
+            }
+            100% { 
+                box-shadow: 0 0 30px rgba(14, 165, 233, 0.8),
+                           0 0 60px rgba(6, 182, 212, 0.5),
+                           0 0 90px rgba(8, 145, 178, 0.2);
+            }
+        }
+
+        /* Rotating Border around Profile */
+        .profile-ring {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                #0ea5e9 90deg,
+                #06b6d4 180deg,
+                #0891b2 270deg,
+                transparent 360deg
+            );
+            animation: ringRotate 4s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes ringRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Secondary Ring */
+        .profile-ring-secondary {
+            position: absolute;
+            top: -25px;
+            left: -25px;
+            right: -25px;
+            bottom: -25px;
+            border-radius: 50%;
+            border: 2px solid rgba(14, 165, 233, 0.2);
+            animation: ringRotate 6s linear infinite reverse;
+            z-index: 0;
+        }
+
+        /* Brand Text */
+        .brand-title {
+            font-size: clamp(2.2rem, 8vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, 
+                #ffffff 0%, 
+                #0ea5e9 25%, 
+                #06b6d4 50%, 
+                #0891b2 75%, 
+                #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 100%;
+            animation: textShine 3s ease-in-out infinite;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        @keyframes textShine {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .brand-subtitle {
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            margin-bottom: 40px;
+            animation: subtitleFade 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtitleFade {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* Modern Loading Spinner */
+        .modern-spinner {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 30px auto;
+        }
+
+        .spinner-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .spinner-circle-1 {
+            border: 3px solid rgba(14, 165, 233, 0.1);
+            border-top: 3px solid #0ea5e9;
+            animation: spin1 2s linear infinite;
+        }
+
+        .spinner-circle-2 {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            border: 3px solid rgba(6, 182, 212, 0.1);
+            border-right: 3px solid #06b6d4;
+            animation: spin2 1.5s linear infinite reverse;
+        }
+
+        .spinner-circle-3 {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            border: 2px solid rgba(8, 145, 178, 0.1);
+            border-bottom: 2px solid #0891b2;
+            animation: spin3 1s linear infinite;
+        }
+
+        @keyframes spin1 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spin2 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        @keyframes spin3 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Loading Text with Typewriter Effect */
+        .loading-text {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            margin-bottom: 30px;
+            min-height: 1.5em;
+            animation: textPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes textPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Modern Progress Bar */
+        .progress-wrapper {
+            width: 100%;
+            max-width: 350px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, 
+                #0ea5e9 0%, 
+                #06b6d4 50%, 
+                #0891b2 100%);
+            border-radius: 10px;
+            transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.4) 50%, 
+                transparent 100%);
+            animation: progressShimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes progressShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Percentage Display */
+        .percentage-display {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            color: #0ea5e9;
+            font-weight: 700;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+            animation: percentGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes percentGlow {
+            0% { text-shadow: 0 0 10px rgba(14, 165, 233, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(14, 165, 233, 0.8), 0 0 30px rgba(6, 182, 212, 0.4); }
+        }
+
+        /* Completion Animation */
+        .completion-burst {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, 
+                rgba(14, 165, 233, 0.6) 0%, 
+                rgba(6, 182, 212, 0.4) 30%, 
+                transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .completion-burst.show {
+            animation: burstEffect 0.8s ease-out;
+        }
+
+        @keyframes burstEffect {
+            0% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(0.3); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1.2); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(2); 
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .loading-content {
+                width: 95%;
+                padding: 0 20px;
+            }
+            
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .profile-ring {
+                top: -12px;
+                left: -12px;
+                right: -12px;
+                bottom: -12px;
+            }
+            
+            .profile-ring-secondary {
+                top: -20px;
+                left: -20px;
+                right: -20px;
+                bottom: -20px;
+            }
+            
+            .modern-spinner {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .progress-wrapper {
+                max-width: 280px;
+            }
+            
+            .grid-background {
+                background-size: 30px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .loading-content {
+                width: 100%;
+                padding: 0 15px;
+            }
+            
+            .profile-image {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .profile-ring {
+                top: -10px;
+                left: -10px;
+                right: -10px;
+                bottom: -10px;
+            }
+            
+            .profile-ring-secondary {
+                top: -16px;
+                left: -16px;
+                right: -16px;
+                bottom: -16px;
+            }
+            
+            .modern-spinner {
+                width: 70px;
+                height: 70px;
+                margin: 20px auto;
+            }
+            
+            .progress-wrapper {
+                max-width: 250px;
+            }
+            
+            .profile-container {
+                margin-bottom: 30px;
+            }
+        }
+
+        /* Ultra-wide screens */
+        @media (min-width: 1920px) {
+            .loading-content {
+                max-width: 700px;
+            }
+            
+            .profile-image {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .modern-spinner {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .profile-image {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container" id="loadingContainer">
+        <!-- Animated Background -->
+        <div class="grid-background"></div>
+        
+        <!-- Floating Orbs -->
+        <div class="floating-orbs" id="orbContainer"></div>
+        
+        <!-- Main Loading Content -->
+        <div class="loading-content">
+            <!-- Profile Image Section -->
+            <div class="profile-container">
+                <div class="profile-ring-secondary"></div>
+                <div class="profile-ring"></div>
+                <img src="./IMG-20250824-WA0014[1].jpg" alt="Hemant Kumar Amogada" class="profile-image" id="profileImg">
+            </div>
+            
+            <!-- Brand Section -->
+            <h1 class="brand-title">Hemant Analytics</h1>
+            <p class="brand-subtitle">Data Science & Analytics Expert</p>
+            
+            <!-- Loading Spinner -->
+            <div class="modern-spinner">
+                <div class="spinner-circle spinner-circle-1"></div>
+                <div class="spinner-circle spinner-circle-2"></div>
+                <div class="spinner-circle spinner-circle-3"></div>
+            </div>
+            
+            <!-- Loading Text -->
+            <div class="loading-text" id="loadingText">Initializing Portfolio...</div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-wrapper">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            
+            <!-- Percentage -->
+            <div class="percentage-display" id="percentageDisplay">0%</div>
+        </div>
+        
+        <!-- Completion Burst Effect -->
+        <div class="completion-burst" id="completionBurst"></div>
+    </div>
+
+    <script>
+        class ModernLoadingScreen {
+            constructor() {
+                this.progress = 0;
+                this.targetProgress = 0;
+                this.isComplete = false;
+                this.startTime = Date.now();
+                this.totalDuration = 5000; // Exact 5 seconds
+                this.loadingMessages = [
+                    { threshold: 0, message: "Initializing Portfolio..." },
+                    { threshold: 15, message: "Loading Analytics Dashboard..." },
+                    { threshold: 30, message: "Preparing Data Visualizations..." },
+                    { threshold: 45, message: "Optimizing Performance..." },
+                    { threshold: 60, message: "Loading Project Gallery..." },
+                    { threshold: 75, message: "Finalizing Experience..." },
+                    { threshold: 90, message: "Almost Ready..." },
+                    { threshold: 100, message: "Welcome to Portfolio!" }
+                ];
+                
+                this.init();
+            }
+            
+            init() {
+                this.createFloatingOrbs();
+                this.startProgressAnimation();
+                this.handleImageLoad();
+            }
+            
+            createFloatingOrbs() {
+                const orbContainer = document.getElementById('orbContainer');
+                const orbCount = window.innerWidth < 768 ? 8 : 15;
+                
+                for (let i = 0; i < orbCount; i++) {
+                    const orb = document.createElement('div');
+                    orb.className = 'orb';
+                    
+                    // Random properties
+                    const size = Math.random() * 60 + 20;
+                    const left = Math.random() * 100;
+                    const top = Math.random() * 100;
+                    const duration = Math.random() * 10 + 10;
+                    const delay = Math.random() * 5;
+                    
+                    orb.style.cssText = `
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${left}%;
+                        top: ${top}%;
+                        animation-duration: ${duration}s;
+                        animation-delay: ${delay}s;
+                    `;
+                    
+                    orbContainer.appendChild(orb);
+                }
+            }
+            
+            startProgressAnimation() {
+                const progressFill = document.getElementById('progressFill');
+                const percentageDisplay = document.getElementById('percentageDisplay');
+                const loadingText = document.getElementById('loadingText');
+                
+                // Use requestAnimationFrame for smooth 60fps animation
+                const animate = () => {
+                    const elapsed = Date.now() - this.startTime;
+                    const progressPercent = Math.min((elapsed / this.totalDuration) * 100, 100);
+                    
+                    // Smooth progress interpolation
+                    this.progress = this.progress + (progressPercent - this.progress) * 0.1;
+                    
+                    // Update UI
+                    progressFill.style.width = `${this.progress}%`;
+                    percentageDisplay.textContent = `${Math.floor(this.progress)}%`;
+                    
+                    // Update loading text
+                    this.updateLoadingText(loadingText);
+                    
+                    // Check if complete
+                    if (elapsed >= this.totalDuration && !this.isComplete) {
+                        this.progress = 100;
+                        progressFill.style.width = '100%';
+                        percentageDisplay.textContent = '100%';
+                        this.completeLoading();
+                    } else if (!this.isComplete) {
+                        requestAnimationFrame(animate);
+                    }
+                };
+                
+                // Start animation
+                requestAnimationFrame(animate);
+            }
+            
+            updateLoadingText(textElement) {
+                const currentMessage = this.loadingMessages
+                    .slice()
+                    .reverse()
+                    .find(msg => this.progress >= msg.threshold);
+                
+                if (currentMessage && textElement.textContent !== currentMessage.message) {
+                    textElement.style.opacity = '0';
+                    setTimeout(() => {
+                        textElement.textContent = currentMessage.message;
+                        textElement.style.opacity = '1';
+                    }, 200);
+                }
+            }
+            
+            handleImageLoad() {
+                const profileImg = document.getElementById('profileImg');
+                
+                // Ensure image loads properly
+                if (profileImg.complete) {
+                    this.onImageLoaded();
+                } else {
+                    profileImg.onload = () => this.onImageLoaded();
+                    profileImg.onerror = () => this.onImageError();
+                }
+            }
+            
+            onImageLoaded() {
+                console.log('Profile image loaded successfully');
+            }
+            
+            onImageError() {
+                console.log('Profile image failed to load, using fallback');
+                const profileImg = document.getElementById('profileImg');
+                // Create a gradient fallback
+                profileImg.style.background = 'linear-gradient(135deg, #0ea5e9, #06b6d4)';
+                profileImg.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:2rem;font-weight:bold;color:white;">H</div>';
+            }
+            
+            completeLoading() {
+                if (this.isComplete) return;
+                this.isComplete = true;
+                
+                const completionBurst = document.getElementById('completionBurst');
+                const loadingContainer = document.getElementById('loadingContainer');
+                
+                // Show completion burst effect
+                completionBurst.classList.add('show');
+                
+                setTimeout(() => {
+                    // Final fade out
+                    loadingContainer.classList.add('fade-out');
+                    
+                    // Navigate to index.html after fade out
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1200);
+                }, 800);
+            }
+        }
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Prevent scrolling during loading
+            document.body.style.overflow = 'hidden';
+            
+            // Start loading screen
+            window.loadingScreen = new ModernLoadingScreen();
+        });
+        
+        // Handle window resize for responsive orbs
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (window.loadingScreen && !window.loadingScreen.isComplete) {
+                    // Recreate orbs for new screen size
+                    const orbContainer = document.getElementById('orbContainer');
+                    if (orbContainer) {
+                        orbContainer.innerHTML = '';
+                        window.loadingScreen.createFloatingOrbs();
+                    }
+                }
+            }, 250);
+        });
+        
+        // Preload index.html and critical resources
+        window.addEventListener('load', () => {
+            // Preload the main portfolio page
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = 'index.html';
+            document.head.appendChild(link);
+        });
+        
+        // Performance optimization
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
+</body>
+</html>
