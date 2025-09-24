@@ -3,1076 +3,768 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hemant Kumar Amogada - Data Analytics Expert | SQL, Power BI, PEGA, Python ML</title>
-    <meta name="description" content="Transform your data into strategic growth with expert analytics services. 5+ years experience, 150+ projects, 73% avg performance gains. Free consultation available.">
-    <meta name="keywords" content="Data Analytics Expert, SQL Database Optimization, Power BI Developer, PEGA Consultant, Python Machine Learning, Business Intelligence Specialist">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Hemant Kumar Amogada",
-      "jobTitle": "Data Analytics Expert",
-      "worksFor": "Elite Analytics Solutions",
-      "knowsAbout": ["Data Analytics", "SQL", "Power BI", "PEGA", "Python", "Machine Learning"],
-      "url": "https://hemantkumaramogada.com"
-    }
-    </script>
+    <title>Hemant Analytics - Loading Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Main Loading Container - Always Centered */
+        .loading-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, 
+                rgba(14, 165, 233, 0.15) 0%,
+                rgba(6, 182, 212, 0.1) 25%,
+                rgba(8, 145, 178, 0.08) 50%,
+                #0a0a0a 75%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .loading-container.fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+            visibility: hidden;
+        }
+
+        /* Animated Background Grid */
+        .grid-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Floating Orbs */
+        .floating-orbs {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(14, 165, 233, 0.8), 
+                rgba(6, 182, 212, 0.4), 
+                transparent);
+            filter: blur(1px);
+            animation: orbFloat 15s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { 
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.6;
+            }
+            25% { 
+                transform: translateY(-30px) translateX(20px) scale(1.1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-60px) translateX(-10px) scale(0.9);
+                opacity: 1;
+            }
+            75% { 
+                transform: translateY(-20px) translateX(-25px) scale(1.05);
+                opacity: 0.7;
+            }
+        }
+
+        /* Main Content Container - Perfect Centering */
+        .loading-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 100;
+            width: 90%;
+            max-width: 600px;
+            animation: contentReveal 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes contentReveal {
+            0% { 
+                opacity: 0; 
+                transform: translateY(40px) scale(0.9);
+                filter: blur(10px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        /* Profile Image Container */
+        .profile-container {
+            position: relative;
+            margin-bottom: 40px;
+            animation: profilePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes profilePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #0ea5e9, #06b6d4, #0891b2);
+            background-clip: padding-box;
+            position: relative;
+            z-index: 2;
+            animation: imageGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes imageGlow {
+            0% { 
+                box-shadow: 0 0 20px rgba(14, 165, 233, 0.5),
+                           0 0 40px rgba(6, 182, 212, 0.3),
+                           0 0 60px rgba(8, 145, 178, 0.1);
+            }
+            100% { 
+                box-shadow: 0 0 30px rgba(14, 165, 233, 0.8),
+                           0 0 60px rgba(6, 182, 212, 0.5),
+                           0 0 90px rgba(8, 145, 178, 0.2);
+            }
+        }
+
+        /* Rotating Border around Profile */
+        .profile-ring {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                #0ea5e9 90deg,
+                #06b6d4 180deg,
+                #0891b2 270deg,
+                transparent 360deg
+            );
+            animation: ringRotate 4s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes ringRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Secondary Ring */
+        .profile-ring-secondary {
+            position: absolute;
+            top: -25px;
+            left: -25px;
+            right: -25px;
+            bottom: -25px;
+            border-radius: 50%;
+            border: 2px solid rgba(14, 165, 233, 0.2);
+            animation: ringRotate 6s linear infinite reverse;
+            z-index: 0;
+        }
+
+        /* Brand Text */
+        .brand-title {
+            font-size: clamp(2.2rem, 8vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, 
+                #ffffff 0%, 
+                #0ea5e9 25%, 
+                #06b6d4 50%, 
+                #0891b2 75%, 
+                #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 100%;
+            animation: textShine 3s ease-in-out infinite;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        @keyframes textShine {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .brand-subtitle {
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            margin-bottom: 40px;
+            animation: subtitleFade 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtitleFade {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* Modern Loading Spinner */
+        .modern-spinner {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 30px auto;
+        }
+
+        .spinner-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .spinner-circle-1 {
+            border: 3px solid rgba(14, 165, 233, 0.1);
+            border-top: 3px solid #0ea5e9;
+            animation: spin1 2s linear infinite;
+        }
+
+        .spinner-circle-2 {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            border: 3px solid rgba(6, 182, 212, 0.1);
+            border-right: 3px solid #06b6d4;
+            animation: spin2 1.5s linear infinite reverse;
+        }
+
+        .spinner-circle-3 {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            border: 2px solid rgba(8, 145, 178, 0.1);
+            border-bottom: 2px solid #0891b2;
+            animation: spin3 1s linear infinite;
+        }
+
+        @keyframes spin1 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spin2 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        @keyframes spin3 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Loading Text with Typewriter Effect */
+        .loading-text {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            margin-bottom: 30px;
+            min-height: 1.5em;
+            animation: textPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes textPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Modern Progress Bar */
+        .progress-wrapper {
+            width: 100%;
+            max-width: 350px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, 
+                #0ea5e9 0%, 
+                #06b6d4 50%, 
+                #0891b2 100%);
+            border-radius: 10px;
+            transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.4) 50%, 
+                transparent 100%);
+            animation: progressShimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes progressShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Percentage Display */
+        .percentage-display {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            color: #0ea5e9;
+            font-weight: 700;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+            animation: percentGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes percentGlow {
+            0% { text-shadow: 0 0 10px rgba(14, 165, 233, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(14, 165, 233, 0.8), 0 0 30px rgba(6, 182, 212, 0.4); }
+        }
+
+        /* Completion Animation */
+        .completion-burst {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, 
+                rgba(14, 165, 233, 0.6) 0%, 
+                rgba(6, 182, 212, 0.4) 30%, 
+                transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .completion-burst.show {
+            animation: burstEffect 0.8s ease-out;
+        }
+
+        @keyframes burstEffect {
+            0% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(0.3); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1.2); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(2); 
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .loading-content {
+                width: 95%;
+                padding: 0 20px;
+            }
+            
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .profile-ring {
+                top: -12px;
+                left: -12px;
+                right: -12px;
+                bottom: -12px;
+            }
+            
+            .profile-ring-secondary {
+                top: -20px;
+                left: -20px;
+                right: -20px;
+                bottom: -20px;
+            }
+            
+            .modern-spinner {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .progress-wrapper {
+                max-width: 280px;
+            }
+            
+            .grid-background {
+                background-size: 30px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .loading-content {
+                width: 100%;
+                padding: 0 15px;
+            }
+            
+            .profile-image {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .profile-ring {
+                top: -10px;
+                left: -10px;
+                right: -10px;
+                bottom: -10px;
+            }
+            
+            .profile-ring-secondary {
+                top: -16px;
+                left: -16px;
+                right: -16px;
+                bottom: -16px;
+            }
+            
+            .modern-spinner {
+                width: 70px;
+                height: 70px;
+                margin: 20px auto;
+            }
+            
+            .progress-wrapper {
+                max-width: 250px;
+            }
+            
+            .profile-container {
+                margin-bottom: 30px;
+            }
+        }
+
+        /* Ultra-wide screens */
+        @media (min-width: 1920px) {
+            .loading-content {
+                max-width: 700px;
+            }
+            
+            .profile-image {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .modern-spinner {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .profile-image {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">
-                    <h2>Hemant<span class="logo-highlight">.Analytics</span></h2>
-                </div>
-                <div class="nav-links">
-                    <a href="#hero" class="nav-link">Home</a>
-                    <a href="#expertise" class="nav-link">Expertise</a>
-                    <a href="#case-studies" class="nav-link">Case Studies</a>
-                    <a href="#experience" class="nav-link">Experience</a>
-                    <a href="#contact" class="nav-link">Contact</a>
-                </div>
-                <button class="nav-toggle" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+    <div class="loading-container" id="loadingContainer">
+        <!-- Animated Background -->
+        <div class="grid-background"></div>
+        
+        <!-- Floating Orbs -->
+        <div class="floating-orbs" id="orbContainer"></div>
+        
+        <!-- Main Loading Content -->
+        <div class="loading-content">
+            <!-- Profile Image Section -->
+            <div class="profile-container">
+                <div class="profile-ring-secondary"></div>
+                <div class="profile-ring"></div>
+                <img src="./IMG-20250824-WA0014[1].jpg" alt="Hemant Kumar Amogada" class="profile-image" id="profileImg">
             </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero-section" id="hero">
-        <div class="hero-background"></div>
-        <div class="container">
-            <div class="hero-content">
-                <div class="social-proof-badges">
-                    <div class="badge">
-                        <span class="badge-number">75+</span>
-                        <span class="badge-text">Clients Served</span>
-                    </div>
-                    <div class="badge">
-                        <span class="badge-number">150+</span>
-                        <span class="badge-text">Projects Completed</span>
-                    </div>
-                    <div class="badge">
-                        <span class="badge-number">73%</span>
-                        <span class="badge-text">Avg Performance Gain</span>
-                    </div>
+            
+            <!-- Brand Section -->
+            <h1 class="brand-title">Hemant Analytics</h1>
+            <p class="brand-subtitle">Data Science & Analytics Expert</p>
+            
+            <!-- Loading Spinner -->
+            <div class="modern-spinner">
+                <div class="spinner-circle spinner-circle-1"></div>
+                <div class="spinner-circle spinner-circle-2"></div>
+                <div class="spinner-circle spinner-circle-3"></div>
+            </div>
+            
+            <!-- Loading Text -->
+            <div class="loading-text" id="loadingText">Initializing Portfolio...</div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-wrapper">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
                 </div>
+            </div>
+            
+            <!-- Percentage -->
+            <div class="percentage-display" id="percentageDisplay">0%</div>
+        </div>
+        
+        <!-- Completion Burst Effect -->
+        <div class="completion-burst" id="completionBurst"></div>
+    </div>
+
+    <script>
+        class ModernLoadingScreen {
+            constructor() {
+                this.progress = 0;
+                this.targetProgress = 0;
+                this.isComplete = false;
+                this.startTime = Date.now();
+                this.totalDuration = 5000; // Exact 5 seconds
+                this.loadingMessages = [
+                    { threshold: 0, message: "Initializing Portfolio..." },
+                    { threshold: 15, message: "Loading Analytics Dashboard..." },
+                    { threshold: 30, message: "Preparing Data Visualizations..." },
+                    { threshold: 45, message: "Optimizing Performance..." },
+                    { threshold: 60, message: "Loading Project Gallery..." },
+                    { threshold: 75, message: "Finalizing Experience..." },
+                    { threshold: 90, message: "Almost Ready..." },
+                    { threshold: 100, message: "Welcome to Portfolio!" }
+                ];
                 
-                <h1 class="hero-title">
-                    Transform Your Data Into <span class="highlight">Strategic Business Growth</span>
-                </h1>
+                this.init();
+            }
+            
+            init() {
+                this.createFloatingOrbs();
+                this.startProgressAnimation();
+                this.handleImageLoad();
+            }
+            
+            createFloatingOrbs() {
+                const orbContainer = document.getElementById('orbContainer');
+                const orbCount = window.innerWidth < 768 ? 8 : 15;
                 
-                <p class="hero-subtitle">
-                    Expert Data Analytics, SQL Optimization & AI Solutions
-                </p>
+                for (let i = 0; i < orbCount; i++) {
+                    const orb = document.createElement('div');
+                    orb.className = 'orb';
+                    
+                    // Random properties
+                    const size = Math.random() * 60 + 20;
+                    const left = Math.random() * 100;
+                    const top = Math.random() * 100;
+                    const duration = Math.random() * 10 + 10;
+                    const delay = Math.random() * 5;
+                    
+                    orb.style.cssText = `
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${left}%;
+                        top: ${top}%;
+                        animation-duration: ${duration}s;
+                        animation-delay: ${delay}s;
+                    `;
+                    
+                    orbContainer.appendChild(orb);
+                }
+            }
+            
+            startProgressAnimation() {
+                const progressFill = document.getElementById('progressFill');
+                const percentageDisplay = document.getElementById('percentageDisplay');
+                const loadingText = document.getElementById('loadingText');
                 
-                <p class="hero-description">
-                    I help businesses unlock hidden insights from their data, optimize database performance by 70%+, and build intelligent systems that drive measurable ROI. Specializing in enterprise-scale solutions for Fortune 500 companies.
-                </p>
+                // Use requestAnimationFrame for smooth 60fps animation
+                const animate = () => {
+                    const elapsed = Date.now() - this.startTime;
+                    const progressPercent = Math.min((elapsed / this.totalDuration) * 100, 100);
+                    
+                    // Smooth progress interpolation
+                    this.progress = this.progress + (progressPercent - this.progress) * 0.1;
+                    
+                    // Update UI
+                    progressFill.style.width = `${this.progress}%`;
+                    percentageDisplay.textContent = `${Math.floor(this.progress)}%`;
+                    
+                    // Update loading text
+                    this.updateLoadingText(loadingText);
+                    
+                    // Check if complete
+                    if (elapsed >= this.totalDuration && !this.isComplete) {
+                        this.progress = 100;
+                        progressFill.style.width = '100%';
+                        percentageDisplay.textContent = '100%';
+                        this.completeLoading();
+                    } else if (!this.isComplete) {
+                        requestAnimationFrame(animate);
+                    }
+                };
                 
-                <div class="cta-buttons">
-                    <button class="btn btn--primary" id="primaryCTA">
-                        <span>Schedule Free Consultation</span>
-                        <div class="btn-glow"></div>
-                    </button>
-                    <button class="btn btn--outline" id="secondaryCTA">Explore My Work</button>
-                </div>
+                // Start animation
+                requestAnimationFrame(animate);
+            }
+            
+            updateLoadingText(textElement) {
+                const currentMessage = this.loadingMessages
+                    .slice()
+                    .reverse()
+                    .find(msg => this.progress >= msg.threshold);
                 
-                <div class="certifications-bar">
-                    <div class="cert-item">Microsoft Azure Data Engineer</div>
-                    <div class="cert-item">Google Cloud Professional</div>
-                    <div class="cert-item">AWS Solutions Architect</div>
-                    <div class="cert-item">PEGA System Architect</div>
-                </div>
-            </div>
-        </div>
-<!-- "" -->
-        <!-- Desktop Profile Picture (visible only on desktop) -->
-                <div class="profile-picture-desktop">
-                    <div class="profile-img-container">
-                        <img src="./IMG-20250824-WA0014[1].jpg" alt="Hemant Kumar Amogada - Data Analytics Expert" class="profile-img">
-                        <div class="profile-border"></div>
-                        <div class="profile-glow"></div>
-                    </div>
-                </div>
-<!-- "" -->
-        <div class="scroll-indicator">
-            <div class="scroll-arrow"></div>
-            <span>Discover More</span>
-        </div>
-    </header>
-
-    <!-- Professional Story Section -->
-    <section class="about-section" id="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="section-header">
-                    <h2 class="section-title">My Data Analytics Journey</h2>
-                    <p class="section-subtitle">Turning Data Chaos Into Strategic Advantages</p>
-                </div>
+                if (currentMessage && textElement.textContent !== currentMessage.message) {
+                    textElement.style.opacity = '0';
+                    setTimeout(() => {
+                        textElement.textContent = currentMessage.message;
+                        textElement.style.opacity = '1';
+                    }, 200);
+                }
+            }
+            
+            handleImageLoad() {
+                const profileImg = document.getElementById('profileImg');
                 
-                <div class="story-content">
-                    <div class="story-text">
-                        <p class="story-intro">Five years ago, I discovered the transformative power of data while helping a struggling e-commerce company increase their revenue by 150% through targeted analytics. That pivotal moment launched my mission to help businesses turn their data chaos into strategic advantages.</p>
-                        
-                        <p>Today, I've guided <strong>75+ organizations</strong> through digital transformation, consistently delivering <strong>70%+ performance improvements</strong> and millions in cost savings. My approach combines deep technical expertise with business acumen, ensuring every solution drives measurable ROI.</p>
-                        
-                        <p class="value-prop">I don't just analyze data – I transform it into your competitive advantage. My unique blend of advanced analytics, database optimization, and AI implementation has helped clients reduce operational costs by $2M+ while increasing efficiency by an average of 73%.</p>
-                        
-                        <p class="personality">When I'm not diving deep into complex datasets, you'll find me contributing to open-source projects, speaking at tech conferences, or mentoring aspiring data scientists. I believe the best insights come from combining technical precision with creative problem-solving.</p>
-                    </div>
-                    
-                    <div class="achievements-grid">
-                        <div class="achievement-card">
-                            <div class="achievement-icon">⚡</div>
-                            <h4>85% Query Optimization</h4>
-                            <p>Reduced response times for major e-commerce platform</p>
-                        </div>
-                        <div class="achievement-card">
-                            <div class="achievement-icon">🎯</div>
-                            <h4>95%+ ML Accuracy</h4>
-                            <p>Built models for customer churn prediction</p>
-                        </div>
-                        <div class="achievement-card">
-                            <div class="achievement-icon">💰</div>
-                            <h4>$2.3M Saved</h4>
-                            <p>Through database optimization projects</p>
-                        </div>
-                        <div class="achievement-card">
-                            <div class="achievement-icon">⏱️</div>
-                            <h4>200+ Hours Monthly</h4>
-                            <p>Automated reporting process savings</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Core Expertise Section -->
-    <section class="expertise-section" id="expertise">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Core Expertise Areas</h2>
-                <p class="section-subtitle">Five Pillars of Data Excellence</p>
-            </div>
+                // Ensure image loads properly
+                if (profileImg.complete) {
+                    this.onImageLoaded();
+                } else {
+                    profileImg.onload = () => this.onImageLoaded();
+                    profileImg.onerror = () => this.onImageError();
+                }
+            }
             
-            <div class="expertise-grid">
-                <div class="expertise-card" data-expertise="analytics">
-                    <div class="expertise-header">
-                        <div class="expertise-icon">📊</div>
-                        <div class="expertise-meta">
-                            <h3>Advanced Data Analytics & Business Intelligence</h3>
-                            <div class="expertise-stats">
-                                <span class="proficiency" data-proficiency="95">95% Proficiency</span>
-                                <span class="experience">5+ years</span>
-                                <span class="projects">45 Projects</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <p class="expertise-description">Transform raw data into actionable business insights using advanced statistical methods, predictive modeling, and machine learning algorithms.</p>
-                    
-                    <div class="expertise-services">
-                        <h4>Key Services:</h4>
-                        <ul>
-                            <li>Predictive Analytics & Forecasting</li>
-                            <li>Customer Segmentation & Behavior Analysis</li>
-                            <li>Real-time Dashboard Development</li>
-                            <li>Statistical Modeling & A/B Testing</li>
-                            <li>Big Data Processing & ETL Pipelines</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="expertise-tech">
-                        <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">R</span>
-                            <span class="tech-tag">Tableau</span>
-                            <span class="tech-tag">Power BI</span>
-                            <span class="tech-tag">Apache Spark</span>
-                            <span class="tech-tag">Databricks</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="expertise-card" data-expertise="sql">
-                    <div class="expertise-header">
-                        <div class="expertise-icon">🗄️</div>
-                        <div class="expertise-meta">
-                            <h3>Enterprise SQL & Database Architecture</h3>
-                            <div class="expertise-stats">
-                                <span class="proficiency" data-proficiency="92">92% Proficiency</span>
-                                <span class="experience">4+ years</span>
-                                <span class="projects">38 Projects</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <p class="expertise-description">Design and optimize high-performance database systems handling millions of records with complex query optimization and scalable architecture.</p>
-                    
-                    <div class="expertise-services">
-                        <h4>Key Services:</h4>
-                        <ul>
-                            <li>Database Performance Tuning</li>
-                            <li>Data Warehouse Design & Implementation</li>
-                            <li>Complex Query Optimization</li>
-                            <li>Database Migration & Scaling</li>
-                            <li>Backup & Recovery Strategy</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="expertise-tech">
-                        <div class="tech-stack">
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">SQL Server</span>
-                            <span class="tech-tag">Oracle</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Redis</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="expertise-card" data-expertise="powerbi">
-                    <div class="expertise-header">
-                        <div class="expertise-icon">📈</div>
-                        <div class="expertise-meta">
-                            <h3>Power BI & Advanced Visualization</h3>
-                            <div class="expertise-stats">
-                                <span class="proficiency" data-proficiency="90">90% Proficiency</span>
-                                <span class="experience">3+ years</span>
-                                <span class="projects">32 Projects</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <p class="expertise-description">Create compelling, interactive dashboards and reports that turn complex data into clear, actionable insights for executive decision-making.</p>
-                    
-                    <div class="expertise-services">
-                        <h4>Key Services:</h4>
-                        <ul>
-                            <li>Executive Dashboard Development</li>
-                            <li>Advanced DAX Formula Creation</li>
-                            <li>Custom Visual Development</li>
-                            <li>Automated Reporting Systems</li>
-                            <li>Data Model Optimization</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="expertise-tech">
-                        <div class="tech-stack">
-                            <span class="tech-tag">Power BI</span>
-                            <span class="tech-tag">DAX</span>
-                            <span class="tech-tag">Power Query</span>
-                            <span class="tech-tag">Power Apps</span>
-                            <span class="tech-tag">Azure Analytics</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="expertise-card" data-expertise="pega">
-                    <div class="expertise-header">
-                        <div class="expertise-icon">⚙️</div>
-                        <div class="expertise-meta">
-                            <h3>PEGA BPM & Process Automation</h3>
-                            <div class="expertise-stats">
-                                <span class="proficiency" data-proficiency="88">88% Proficiency</span>
-                                <span class="experience">3+ years</span>
-                                <span class="projects">25 Projects</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <p class="expertise-description">Streamline business processes through intelligent automation, reducing manual work by 80%+ and improving operational efficiency.</p>
-                    
-                    <div class="expertise-services">
-                        <h4>Key Services:</h4>
-                        <ul>
-                            <li>Business Process Automation</li>
-                            <li>Workflow Design & Optimization</li>
-                            <li>Case Management Solutions</li>
-                            <li>Integration Development</li>
-                            <li>Digital Transformation Consulting</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="expertise-tech">
-                        <div class="tech-stack">
-                            <span class="tech-tag">PEGA PRPC</span>
-                            <span class="tech-tag">PEGA CDH</span>
-                            <span class="tech-tag">Java</span>
-                            <span class="tech-tag">REST APIs</span>
-                            <span class="tech-tag">SOAP Services</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="expertise-card" data-expertise="python">
-                    <div class="expertise-header">
-                        <div class="expertise-icon">🐍</div>
-                        <div class="expertise-meta">
-                            <h3>Python AI/ML & Data Science</h3>
-                            <div class="expertise-stats">
-                                <span class="proficiency" data-proficiency="94">94% Proficiency</span>
-                                <span class="experience">4+ years</span>
-                                <span class="projects">40 Projects</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <p class="expertise-description">Develop intelligent systems using machine learning, deep learning, and AI to solve complex business problems with 90%+ accuracy.</p>
-                    
-                    <div class="expertise-services">
-                        <h4>Key Services:</h4>
-                        <ul>
-                            <li>Machine Learning Model Development</li>
-                            <li>Natural Language Processing</li>
-                            <li>Computer Vision Applications</li>
-                            <li>Predictive Analytics Systems</li>
-                            <li>AI-Powered Automation</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="expertise-tech">
-                        <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">TensorFlow</span>
-                            <span class="tech-tag">PyTorch</span>
-                            <span class="tech-tag">Scikit-learn</span>
-                            <span class="tech-tag">OpenCV</span>
-                            <span class="tech-tag">NLTK</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Case Studies Section -->
-    <section class="case-studies-section" id="case-studies">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Featured Case Studies</h2>
-                <p class="section-subtitle">Real Projects, Measurable Results</p>
-            </div>
+            onImageLoaded() {
+                console.log('Profile image loaded successfully');
+            }
             
-            <div class="case-studies-grid">
-                <div class="case-study-card featured" data-category="analytics">
-                    <div class="case-study-header">
-                        <div class="case-badge">Featured</div>
-                        <h3>E-commerce Revenue Optimization Platform</h3>
-                        <p class="case-client">Fortune 500 Retail Company • 6 months • Lead Data Analyst</p>
-                    </div>
-                    
-                    <div class="case-content">
-                        <div class="case-challenge">
-                            <h4>Challenge</h4>
-                            <p>Major e-commerce platform experiencing declining conversion rates and unable to identify customer behavior patterns affecting $50M annual revenue.</p>
-                        </div>
-                        
-                        <div class="case-solution">
-                            <h4>Solution</h4>
-                            <p>Implemented comprehensive analytics pipeline using Python, built predictive models for customer behavior, created real-time Power BI dashboards, and developed automated A/B testing framework.</p>
-                        </div>
-                        
-                        <div class="case-results">
-                            <div class="result-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">47%</span>
-                                    <span class="metric-label">Revenue Increase</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">23%</span>
-                                    <span class="metric-label">Conversion Improvement</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">$2.3M</span>
-                                    <span class="metric-label">Additional Revenue</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="case-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">SQL Server</span>
-                            <span class="tech-tag">Power BI</span>
-                            <span class="tech-tag">Azure ML</span>
-                            <span class="tech-tag">Google Analytics</span>
-                        </div>
-                        
-                        <div class="case-actions">
-                            <button class="btn btn--outline btn--sm">View Details</button>
-                            <button class="btn btn--outline btn--sm">Live Demo</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="case-study-card" data-category="sql">
-                    <div class="case-study-header">
-                        <h3>Financial Database Performance Optimization</h3>
-                        <p class="case-client">Global Investment Bank • 4 months • Senior Database Architect</p>
-                    </div>
-                    
-                    <div class="case-content">
-                        <div class="case-challenge">
-                            <h4>Challenge</h4>
-                            <p>Critical financial reporting system experiencing 45-second query response times, causing daily operational delays and regulatory compliance issues.</p>
-                        </div>
-                        
-                        <div class="case-results">
-                            <div class="result-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">85%</span>
-                                    <span class="metric-label">Performance Gain</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">3.2s</span>
-                                    <span class="metric-label">Response Time</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">$450K</span>
-                                    <span class="metric-label">Annual Savings</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="case-tech">
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">Query Optimization</span>
-                            <span class="tech-tag">Database Tuning</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="case-study-card" data-category="powerbi">
-                    <div class="case-study-header">
-                        <h3>Executive Analytics Dashboard Suite</h3>
-                        <p class="case-client">Manufacturing Conglomerate • 5 months • Lead BI Developer</p>
-                    </div>
-                    
-                    <div class="case-content">
-                        <div class="case-challenge">
-                            <h4>Challenge</h4>
-                            <p>C-suite executives lacked real-time visibility into KPIs across 12 business units, relying on static monthly reports for strategic decisions.</p>
-                        </div>
-                        
-                        <div class="case-results">
-                            <div class="result-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">70%</span>
-                                    <span class="metric-label">Faster Decisions</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">90%</span>
-                                    <span class="metric-label">Reporting Efficiency</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">100%</span>
-                                    <span class="metric-label">C-suite Adoption</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="case-tech">
-                            <span class="tech-tag">Power BI</span>
-                            <span class="tech-tag">DAX</span>
-                            <span class="tech-tag">Azure SQL</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="case-study-card" data-category="pega">
-                    <div class="case-study-header">
-                        <h3>Insurance Claims Processing Automation</h3>
-                        <p class="case-client">Major Insurance Provider • 8 months • PEGA Lead Developer</p>
-                    </div>
-                    
-                    <div class="case-content">
-                        <div class="case-challenge">
-                            <h4>Challenge</h4>
-                            <p>Manual claims processing taking 15+ days per claim, causing customer dissatisfaction across 50,000+ annual claims.</p>
-                        </div>
-                        
-                        <div class="case-results">
-                            <div class="result-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">80%</span>
-                                    <span class="metric-label">Faster Processing</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">3 days</span>
-                                    <span class="metric-label">Average Time</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">$1.2M</span>
-                                    <span class="metric-label">Operational Savings</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="case-tech">
-                            <span class="tech-tag">PEGA PRPC</span>
-                            <span class="tech-tag">Java</span>
-                            <span class="tech-tag">REST APIs</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="case-study-card" data-category="python">
-                    <div class="case-study-header">
-                        <h3>Customer Churn Prediction AI System</h3>
-                        <p class="case-client">Telecommunications Giant • 7 months • ML Engineering Lead</p>
-                    </div>
-                    
-                    <div class="case-content">
-                        <div class="case-challenge">
-                            <h4>Challenge</h4>
-                            <p>High customer churn rate (15%) causing $5M annual revenue loss with no predictive capability to identify at-risk customers proactively.</p>
-                        </div>
-                        
-                        <div class="case-results">
-                            <div class="result-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">94%</span>
-                                    <span class="metric-label">Prediction Accuracy</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">35%</span>
-                                    <span class="metric-label">Churn Reduction</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">$1.8M</span>
-                                    <span class="metric-label">Revenue Retention</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="case-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">TensorFlow</span>
-                            <span class="tech-tag">AWS SageMaker</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="case-study-card" data-category="integrated">
-                    <div class="case-study-header">
-                        <h3>Supply Chain Analytics Platform</h3>
-                        <p class="case-client">Global Logistics Company • 10 months • Technical Lead</p>
-                    </div>
-                    
-                    <div class="case-content">
-                        <div class="case-challenge">
-                            <h4>Challenge</h4>
-                            <p>Inefficient supply chain operations with no visibility into bottlenecks, causing $3M annual losses and customer service issues.</p>
-                        </div>
-                        
-                        <div class="case-results">
-                            <div class="result-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">40%</span>
-                                    <span class="metric-label">Delivery Improvement</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">$2.1M</span>
-                                    <span class="metric-label">Annual Savings</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">90%</span>
-                                    <span class="metric-label">On-time Delivery</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="case-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Power BI</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">Azure IoT</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section class="experience-section" id="experience">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Professional Experience</h2>
-                <p class="section-subtitle">5+ Years of Data-Driven Success</p>
-            </div>
+            onImageError() {
+                console.log('Profile image failed to load, using fallback');
+                const profileImg = document.getElementById('profileImg');
+                // Create a gradient fallback
+                profileImg.style.background = 'linear-gradient(135deg, #0ea5e9, #06b6d4)';
+                profileImg.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:2rem;font-weight:bold;color:white;">H</div>';
+            }
             
-            <div class="experience-timeline">
-                <div class="experience-item">
-                    <div class="experience-period">2022 - Present</div>
-                    <div class="experience-content">
-                        <h3>Senior Data Analytics Consultant</h3>
-                        <h4>Elite Analytics Solutions • Bangalore, India</h4>
-                        <ul class="achievements-list">
-                            <li>Led 25+ data transformation projects for Fortune 500 clients, generating $5M+ in measurable business value</li>
-                            <li>Reduced client database query times by average 73% through advanced optimization techniques</li>
-                            <li>Built predictive models achieving 90%+ accuracy for customer behavior, sales forecasting, and risk assessment</li>
-                            <li>Mentored team of 8 junior analysts, improving project delivery speed by 40%</li>
-                            <li>Established best practices framework adopted across 15+ client implementations</li>
-                        </ul>
-                        <div class="experience-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">SQL</span>
-                            <span class="tech-tag">Power BI</span>
-                            <span class="tech-tag">Machine Learning</span>
-                            <span class="tech-tag">Cloud Platforms</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="experience-item">
-                    <div class="experience-period">2021 - 2022</div>
-                    <div class="experience-content">
-                        <h3>PEGA Developer & Business Analyst</h3>
-                        <h4>Digital Transformation Corp • Bangalore, India</h4>
-                        <ul class="achievements-list">
-                            <li>Automated 15+ business processes, reducing manual work by 80% and saving $800K annually</li>
-                            <li>Designed workflow solutions processing 50K+ cases monthly with 99.5% accuracy</li>
-                            <li>Integrated PEGA systems with external APIs, improving data flow efficiency by 60%</li>
-                            <li>Trained 20+ business users on new automated processes, ensuring smooth adoption</li>
-                            <li>Reduced process cycle time from weeks to days across all implemented workflows</li>
-                        </ul>
-                        <div class="experience-tech">
-                            <span class="tech-tag">PEGA PRPC</span>
-                            <span class="tech-tag">Java</span>
-                            <span class="tech-tag">REST APIs</span>
-                            <span class="tech-tag">Business Process Management</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="experience-item">
-                    <div class="experience-period">2020 - 2021</div>
-                    <div class="experience-content">
-                        <h3>Database Developer & SQL Specialist</h3>
-                        <h4>TechnoData Systems • Bangalore, India</h4>
-                        <ul class="achievements-list">
-                            <li>Optimized database performance for 10+ enterprise clients, improving response times by average 65%</li>
-                            <li>Designed data warehouse architecture handling 2TB+ daily data processing</li>
-                            <li>Implemented backup and recovery systems ensuring 99.99% data availability</li>
-                            <li>Created automated monitoring solutions reducing database incidents by 90%</li>
-                            <li>Trained development teams on advanced SQL techniques and best practices</li>
-                        </ul>
-                        <div class="experience-tech">
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">SQL Server</span>
-                            <span class="tech-tag">Data Warehousing</span>
-                            <span class="tech-tag">ETL</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials-section" id="testimonials">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Client Success Stories</h2>
-                <p class="section-subtitle">What Industry Leaders Say</p>
-            </div>
-            
-            <div class="testimonials-grid">
-                <div class="testimonial-card featured">
-                    <div class="testimonial-content">
-                        <div class="stars">★★★★★</div>
-                        <blockquote>"Hemant transformed our entire analytics capability. His data insights helped us increase revenue by $2.3M in just 6 months. He doesn't just deliver reports – he delivers business transformation."</blockquote>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>Sarah Chen</h4>
-                                <p>VP of Analytics, Fortune 500 Retail</p>
-                                <div class="project-impact">$2.3M Impact • 6 months collaboration</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="stars">★★★★★</div>
-                        <blockquote>"The database optimization Hemant delivered exceeded all expectations. We went from 45-second queries to 3-second responses. His technical expertise is unmatched."</blockquote>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>Michael Rodriguez</h4>
-                                <p>CTO, Global Investment Bank</p>
-                                <div class="project-impact">$450K Savings • 4 months</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="stars">★★★★★</div>
-                        <blockquote>"Hemant's Power BI dashboards revolutionized our executive decision-making. We now spot market opportunities weeks ahead of competitors."</blockquote>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>Emily Zhang</h4>
-                                <p>Chief Strategy Officer</p>
-                                <div class="project-impact">$200K Savings • 5 months</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="stars">★★★★★</div>
-                        <blockquote>"The PEGA automation system processes our claims 80% faster. Customer satisfaction improved dramatically. He's a process automation genius."</blockquote>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>David Thompson</h4>
-                                <p>Operations Director</p>
-                                <div class="project-impact">$1.2M Savings • 8 months</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="stars">★★★★★</div>
-                        <blockquote>"Hemant's AI system predicts customer churn with 94% accuracy. We've retained $1.8M in revenue that would have walked away."</blockquote>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>Jennifer Liu</h4>
-                                <p>VP Customer Experience</p>
-                                <div class="project-impact">$1.8M Retention • 7 months</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog/Insights Section -->
-    <section class="blog-section" id="blog">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Industry Insights</h2>
-                <p class="section-subtitle">Data Analytics Trends & Thought Leadership</p>
-            </div>
-            
-            <div class="blog-grid">
-                <article class="blog-card featured">
-                    <div class="blog-header">
-                        <div class="blog-category">Industry Trends</div>
-                        <h3>The Future of Real-Time Analytics in 2025</h3>
-                        <p class="blog-excerpt">Exploring how streaming data and edge computing are transforming business intelligence capabilities and what it means for enterprise decision-making.</p>
-                        <div class="blog-meta">
-                            <span class="blog-date">September 15, 2025</span>
-                            <span class="blog-read">8 min read</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="blog-card">
-                    <div class="blog-header">
-                        <div class="blog-category">Technical Tutorial</div>
-                        <h3>SQL Performance Optimization: Advanced Techniques</h3>
-                        <p class="blog-excerpt">Deep dive into query optimization strategies that can improve database performance by 70%+.</p>
-                        <div class="blog-meta">
-                            <span class="blog-date">September 1, 2025</span>
-                            <span class="blog-read">12 min read</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="blog-card">
-                    <div class="blog-header">
-                        <div class="blog-category">Machine Learning</div>
-                        <h3>Building Scalable ML Pipelines with Python</h3>
-                        <p class="blog-excerpt">Step-by-step guide to creating production-ready machine learning systems that scale.</p>
-                        <div class="blog-meta">
-                            <span class="blog-date">August 20, 2025</span>
-                            <span class="blog-read">15 min read</span>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications Section -->
-    <section class="certifications-section" id="certifications">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Certifications & Awards</h2>
-                <p class="section-subtitle">Validated Expertise & Industry Recognition</p>
-            </div>
-            
-            <div class="certifications-grid">
-                <div class="cert-card">
-                    <div class="cert-badge">🏆</div>
-                    <h3>Microsoft Certified: Azure Data Engineer Associate</h3>
-                    <p class="cert-issuer">Microsoft • 2024</p>
-                    <p class="cert-id">Credential ID: H123-456-789</p>
-                    <button class="btn btn--outline btn--sm">Verify Credential</button>
-                </div>
-
-                <div class="cert-card">
-                    <div class="cert-badge">🏆</div>
-                    <h3>Google Cloud Professional Data Engineer</h3>
-                    <p class="cert-issuer">Google Cloud • 2024</p>
-                    <p class="cert-id">Credential ID: G987-654-321</p>
-                    <button class="btn btn--outline btn--sm">Verify Credential</button>
-                </div>
-
-                <div class="cert-card">
-                    <div class="cert-badge">🏆</div>
-                    <h3>AWS Certified Solutions Architect</h3>
-                    <p class="cert-issuer">Amazon Web Services • 2023</p>
-                    <p class="cert-id">Credential ID: A456-789-123</p>
-                    <button class="btn btn--outline btn--sm">Verify Credential</button>
-                </div>
-
-                <div class="cert-card">
-                    <div class="cert-badge">🏆</div>
-                    <h3>PEGA Certified System Architect</h3>
-                    <p class="cert-issuer">Pegasystems • 2023</p>
-                    <p class="cert-id">Credential ID: P789-123-456</p>
-                    <button class="btn btn--outline btn--sm">Verify Credential</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Speaking Section -->
-    <section class="speaking-section" id="speaking">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Speaking & Community</h2>
-                <p class="section-subtitle">Industry Involvement & Knowledge Sharing</p>
-            </div>
-            
-            <div class="speaking-grid">
-                <div class="speaking-card">
-                    <div class="speaking-type">Keynote</div>
-                    <h3>Real-Time Analytics: Transforming Business Intelligence</h3>
-                    <div class="speaking-details">
-                        <div class="speaking-event">Data Analytics Summit 2024</div>
-                        <div class="speaking-location">Mumbai, India • November 15, 2024</div>
-                        <div class="speaking-audience">500+ attendees</div>
-                    </div>
-                    <button class="btn btn--outline btn--sm">View Slides</button>
-                </div>
-
-                <div class="speaking-card">
-                    <div class="speaking-type">Workshop</div>
-                    <h3>SQL Performance Optimization Workshop</h3>
-                    <div class="speaking-details">
-                        <div class="speaking-event">Database Developers Conference</div>
-                        <div class="speaking-location">Bangalore, India • August 20, 2024</div>
-                        <div class="speaking-audience">200+ attendees</div>
-                    </div>
-                    <button class="btn btn--outline btn--sm">View Slides</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Ready to Transform Your Data Strategy?</h2>
-                <p class="section-subtitle">Let's discuss how I can help you unlock your data's potential</p>
-            </div>
-            
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="availability-status">
-                        <div class="status-indicator"></div>
-                        <span>Currently accepting new projects</span>
-                    </div>
-                    
-                    <div class="response-time">
-                        <strong>Response Time:</strong> Within 4 hours
-                    </div>
-                    
-                    <div class="consultation-offer">
-                        <h3>🎁 Free 30-minute Strategy Consultation</h3>
-                        <p>For qualified projects over $10K</p>
-                    </div>
-                    
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <strong>Email:</strong> hemant.amogada@dataexpert.com
-                        </div>
-                        <div class="contact-method">
-                            <strong>Phone:</strong> +91-9876543210
-                        </div>
-                        <div class="contact-method">
-                            <strong>Location:</strong> Bangalore, India (Remote available globally)
-                        </div>
-                    </div>
-                    
-                    <div class="services-list">
-                        <h4>Services Available:</h4>
-                        <ul>
-                            <li>Data Analytics Consulting</li>
-                            <li>Database Performance Optimization</li>
-                            <li>Power BI Dashboard Development</li>
-                            <li>PEGA Process Automation</li>
-                            <li>Machine Learning Implementation</li>
-                            <li>Data Strategy Consulting</li>
-                        </ul>
-                    </div>
-                </div>
+            completeLoading() {
+                if (this.isComplete) return;
+                this.isComplete = true;
                 
-                <div class="contact-form-container">
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <label class="form-label">Project Type *</label>
-                            <select class="form-control" required>
-                                <option value="">Select your project type</option>
-                                <option value="data-analytics">Data Analytics Consulting</option>
-                                <option value="database-optimization">Database Optimization</option>
-                                <option value="power-bi">Power BI Development</option>
-                                <option value="pega-automation">PEGA Automation</option>
-                                <option value="ml-ai">Machine Learning/AI</option>
-                                <option value="strategy-consulting">Data Strategy Consulting</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Name *</label>
-                                <input type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Company</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Email *</label>
-                                <input type="email" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Phone</label>
-                                <input type="tel" class="form-control">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Project Budget</label>
-                            <select class="form-control">
-                                <option value="">Select budget range</option>
-                                <option value="5k-15k">$5K - $15K</option>
-                                <option value="15k-50k">$15K - $50K</option>
-                                <option value="50k-100k">$50K - $100K</option>
-                                <option value="100k+">$100K+</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Project Description *</label>
-                            <textarea class="form-control" rows="4" placeholder="Tell me about your data challenges, goals, and what you're looking to achieve..." required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Timeline</label>
-                            <select class="form-control">
-                                <option value="">Select timeline</option>
-                                <option value="urgent">ASAP (Rush project)</option>
-                                <option value="1-month">Within 1 month</option>
-                                <option value="3-months">Within 3 months</option>
-                                <option value="6-months">Within 6 months</option>
-                                <option value="flexible">Flexible</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn--primary btn--full-width">
-                                Transform Your Data - Book Free Consultation
-                            </button>
-                            <button type="button" class="btn btn--outline btn--full-width">
-                                Download Portfolio PDF
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>Hemant<span class="logo-highlight">.Analytics</span></h3>
-                    <p>Transforming data into strategic business growth</p>
-                </div>
+                const completionBurst = document.getElementById('completionBurst');
+                const loadingContainer = document.getElementById('loadingContainer');
                 
-                <div class="footer-links">
-                    <div class="footer-section">
-                        <h4>Services</h4>
-                        <ul>
-                            <li><a href="#expertise">Data Analytics</a></li>
-                            <li><a href="#expertise">SQL Optimization</a></li>
-                            <li><a href="#expertise">Power BI Development</a></li>
-                            <li><a href="#expertise">PEGA Automation</a></li>
-                            <li><a href="#expertise">Machine Learning</a></li>
-                        </ul>
-                    </div>
+                // Show completion burst effect
+                completionBurst.classList.add('show');
+                
+                setTimeout(() => {
+                    // Final fade out
+                    loadingContainer.classList.add('fade-out');
                     
-                    <div class="footer-section">
-                        <h4>Resources</h4>
-                        <ul>
-                            <li><a href="#case-studies">Case Studies</a></li>
-                            <li><a href="#blog">Blog</a></li>
-                            <li><a href="#certifications">Certifications</a></li>
-                            <li><a href="#speaking">Speaking</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-section">
-                        <h4>Connect</h4>
-                        <ul>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="https://linkedin.com/in/hemant-kumar-amogada" target="_blank">LinkedIn</a></li>
-                            <li><a href="mailto:hemant.amogada@dataexpert.com">Email</a></li>
-                            <li><a href="#contact">Schedule Call</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                    // Navigate to index.html after fade out
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1200);
+                }, 800);
+            }
+        }
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Prevent scrolling during loading
+            document.body.style.overflow = 'hidden';
             
-            <div class="footer-bottom">
-                <p>&copy; 2025 Hemant Kumar Amogada. All rights reserved.</p>
-                <div class="footer-cta">
-                    <span>Ready to get started?</span>
-                    <a href="#contact" class="footer-cta-link">Let's talk</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="app.js"></script>
+            // Start loading screen
+            window.loadingScreen = new ModernLoadingScreen();
+        });
+        
+        // Handle window resize for responsive orbs
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (window.loadingScreen && !window.loadingScreen.isComplete) {
+                    // Recreate orbs for new screen size
+                    const orbContainer = document.getElementById('orbContainer');
+                    if (orbContainer) {
+                        orbContainer.innerHTML = '';
+                        window.loadingScreen.createFloatingOrbs();
+                    }
+                }
+            }, 250);
+        });
+        
+        // Preload index.html and critical resources
+        window.addEventListener('load', () => {
+            // Preload the main portfolio page
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = 'index.html';
+            document.head.appendChild(link);
+        });
+        
+        // Performance optimization
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
 </body>
 </html>
